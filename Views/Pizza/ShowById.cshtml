@@ -1,0 +1,18 @@
+﻿@model Pizza
+
+@{
+}
+
+<div>
+   <div>
+      <p>
+         @Model.Id
+         @Model.Name
+         @Model.Description
+         @Model.Image
+         @Model.Price
+      </p>
+   </div>
+
+   <a class="btn btn-primary" asp-area="" asp-action="Index" asp-controller="Home">Back to Home</a>
+</div>
