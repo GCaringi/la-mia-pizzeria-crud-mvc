@@ -12,7 +12,7 @@ public class PizzaController : Controller
         List<Pizza> pizzas = new();
         using (ApplicationDbContext db = new ApplicationDbContext())
         {
-            pizzas = db.Pizzas.ToList();
+            pizzas = db.Pizzas.Include("Category").ToList();
         }
         return View(pizzas);
     }
@@ -22,29 +22,35 @@ public class PizzaController : Controller
         Pizza? pizza = new();
         using (var db = new ApplicationDbContext())
         {
-            pizza = db.Pizzas.FirstOrDefault(x => x.Id == id);
+            pizza = db.Pizzas.Include("Category").FirstOrDefault(x => x.Id == id);
         }
 
         return View(pizza);
     }
     
+    [HttpGet]
     public IActionResult Create()
     {
-        return View();
+        PizzaCategories join = new PizzaCategories();
+
+        join.Categories = new ApplicationDbContext().Categories.ToList();
+        
+        return View(join);
     }
     
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Pizza pizza)
+    public IActionResult Create(PizzaCategories formData)
     {
         if (!ModelState.IsValid)
         {
-            return View("Create",pizza);
+            formData.Categories = new ApplicationDbContext().Categories.ToList();
+            return View("Create",formData);
         }
 
         using (var db = new ApplicationDbContext())
         {
-            db.Pizzas.Add(pizza);
+            db.Pizzas.Add(formData.Pizza);
             
             db.SaveChanges();
         }
@@ -61,26 +67,28 @@ public class PizzaController : Controller
             {
                 return NotFound();
             }
-            return View(pizza);
+
+            PizzaCategories join = new PizzaCategories();
+            join.Pizza = pizza;
+            join.Categories = db.Categories.ToList();
+
+            return View(join);
         }
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, Pizza pizza)
+    public IActionResult Edit(int id, PizzaCategories formData)
     {
         if (!ModelState.IsValid)
         {
-            return View("Edit",pizza);
+            return View("Edit",formData);
         }
 
         using (var db = new ApplicationDbContext())
         {
-            Pizza? savedPizza = db.Pizzas.FirstOrDefault(x => x.Id == id);
-            savedPizza.Name = pizza.Name;
-            savedPizza.Description = pizza.Description;
-            savedPizza.Image = pizza.Image;
-            savedPizza.Price = pizza.Price;
+            formData.Pizza.Id = id;
+            db.Pizzas.Update(formData.Pizza);
 
             db.SaveChanges();
         }

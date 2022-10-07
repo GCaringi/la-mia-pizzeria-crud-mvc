@@ -1,4 +1,4 @@
-﻿@model Pizza
+﻿@model PizzaCategories
 
 @{
 }
@@ -7,24 +7,36 @@
     <form method="post" asp-action="Create">
         @Html.AntiForgeryToken()
         <div class="mb-3">
-            <label asp-for="Name" for="name" class="form-label">Nome</label>
-            <input asp-for="Name" type="text" class="form-control" id="name">
-            <span class = "text-danger" asp-validation-for="Name"></span>
+            <label asp-for="Pizza.Name" for="name" class="form-label">Nome</label>
+            <input asp-for="Pizza.Name" type="text" class="form-control" id="name">
+            <span class="text-danger" asp-validation-for="Pizza.Name"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="Description" for="description" class="form-label">Descrizione</label>
-            <textarea asp-for="Description" class="form-control" id="description"></textarea>
-            <span class = "text-danger" asp-validation-for="Description"></span>
+            <label asp-for="Pizza.Description" for="description" class="form-label">Descrizione</label>
+            <textarea asp-for="Pizza.Description" class="form-control" id="description"></textarea>
+            <span class="text-danger" asp-validation-for="Pizza.Description"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="Image" for="image" class="form-label">Immagine</label>
-            <input asp-for="Image" type="text" class="form-control" id="image">
-            <span class = "text-danger" asp-validation-for="Image"></span>
+            <label asp-for="Pizza.Image" for="image" class="form-label">Immagine</label>
+            <input asp-for="Pizza.Image" type="text" class="form-control" id="image">
+            <span class="text-danger" asp-validation-for="Pizza.Image"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="Price" for="price" class="form-label">Prezzo</label>
-            <input asp-for="Price" type="number" class="form-control" id="price" step=".01">
-            <span class = "text-danger" asp-validation-for="Price"></span>
+            <label asp-for="Pizza.Price" for="price" class="form-label">Prezzo</label>
+            <input asp-for="Pizza.Price" type="number" class="form-control" id="price" step=".01">
+            <span class="text-danger" asp-validation-for="Pizza.Price"></span>
+        </div>
+        <div>
+            <label asp-for="Pizza.CategoryId" for="price" class="form-label">Prezzo</label>
+            <select asp-for="Pizza.CategoryId" class="d-block w-100">
+                
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+
+            </select>
+            <span class="text-danger" asp-validation-for="Pizza.CategoryId"></span>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
