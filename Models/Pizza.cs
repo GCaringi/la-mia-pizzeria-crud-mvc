@@ -16,11 +16,11 @@ public class Pizza
     [Required(ErrorMessage = "Il campo è obbligatorio")]
     public string Image { get; set; }
     [Required(ErrorMessage = "Il campo è obbligatorio")]
-    [Column(TypeName = "decimal(8,2)")]
+    // [Column(TypeName = "decimal(8,2)")]
     [Range(1,100, ErrorMessage = "Il prezzo deve essere compreso tra 1 e 100")]
     public decimal Price { get; set; }
 
-    public Pizza()
+    public Pizza() 
     {
         
     }
