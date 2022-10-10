@@ -82,6 +82,7 @@ public class PizzaController : Controller
     {
         if (!ModelState.IsValid)
         {
+            formData.Categories = new ApplicationDbContext().Categories.ToList();
             return View("Edit",formData);
         }
 
