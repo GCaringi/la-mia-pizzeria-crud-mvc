@@ -68,7 +68,7 @@ namespace la_mia_pizzeria_crud_mvc.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredient");
+                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("la_mia_pizzeria_crud_mvc.Models.Pizza", b =>
