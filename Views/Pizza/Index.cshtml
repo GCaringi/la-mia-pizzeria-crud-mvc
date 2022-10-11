@@ -18,6 +18,7 @@
                 <th>Foto</th>
                 <th>Prezzo</th>
                 <th>Categoria</th>
+                <th>Ingredienti</th>
                 <th>Azioni</th>
             </tr>
             </thead>
@@ -35,6 +36,11 @@
                     </td>
                     <td>@pizza.Price €</td>
                     <td>@pizza.Category.Name</td>
+                    <td>
+                        @foreach (var ingredient in pizza.Ingredients)
+                        {
+                            <span>@ingredient.Name </span>
+                        }
                     <td>
                         <a class="btn btn-warning" asp-action="Edit" asp-controller="Pizza" asp-route-id="@pizza.Id">Modifica</a>
                         <form method="POST" asp-action="Delete" asp-route-id="@pizza.Id">
