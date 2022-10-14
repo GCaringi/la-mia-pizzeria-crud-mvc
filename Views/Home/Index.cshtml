@@ -1,8 +1,49 @@
-﻿@{
+﻿@model List<Pizza>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    @if (Model.Count < 1)
+    {
+        <h1>Non ci sono pizze nel database</h1>
+    }
+    else
+    {
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrizione</th>
+                <th>Foto</th>
+                <th>Prezzo</th>
+                <th>Categoria</th>
+                <th>Ingredienti</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @foreach (Pizza pizza in Model)
+            {
+                <tr>
+                    <td>
+                        @pizza.Name
+                    </td>
+                    <td>@pizza.Description</td>
+                    <td>
+                        <img src="" alt="@pizza.Image"/>
+                    </td>
+                    <td>@pizza.Price €</td>
+                    <td>@pizza.Category.Name</td>
+                    <td>
+                        @foreach (var ingredient in pizza.Ingredients)
+                        {
+                            <span>@ingredient.Name </span>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
 </div>

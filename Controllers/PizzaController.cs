@@ -1,10 +1,12 @@
 ﻿using la_mia_pizzeria_crud_mvc.Context;
 using la_mia_pizzeria_crud_mvc.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_crud_mvc.Controllers;
 
+[Authorize]
 public class PizzaController : Controller
 {
     [HttpGet]
